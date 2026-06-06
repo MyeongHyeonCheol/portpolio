@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>명현철 | Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;750;850&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7f4;
+      --ink: #161616;
+      --muted: #646b73;
+      --line: #dfe3dc;
+      --panel: #ffffff;
+      --green: #0f8a65;
+      --lime: #d8f26a;
+      --orange: #ff8a3d;
+      --blue: #4a6cf7;
+      --shadow: 0 26px 80px rgba(18, 24, 30, 0.12);
+      --soft-shadow: 0 14px 40px rgba(18, 24, 30, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(216, 242, 106, 0.55), transparent 24rem),
+        radial-gradient(circle at 82% 18%, rgba(74, 108, 247, 0.14), transparent 25rem),
+        linear-gradient(180deg, #fbfcf8 0%, var(--bg) 56%, #eef2ef 100%);
+      font-family: "Inter", "Noto Sans KR", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(246, 247, 244, 0.78);
+      border-bottom: 1px solid rgba(22, 22, 22, 0.08);
+    }
+
+    .nav-inner {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 66px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: var(--lime);
+      font-size: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      color: #3d4247;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(22, 22, 22, 0.06);
+    }
+
+    .hero {
+      min-height: calc(100vh - 66px);
+      padding: 64px 0 46px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) 360px;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 34px;
+      padding: 0 13px;
+      border-radius: 999px;
+      background: rgba(15, 138, 101, 0.1);
+      color: #0b6d51;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    h1 {
+      margin: 28px 0 26px;
+      max-width: 880px;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .hero strong {
+      color: var(--green);
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: #3c4248;
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: clamp(18px, 2vw, 23px);
+      font-weight: 500;
+      word-break: keep-all;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(22, 22, 22, 0.15);
+      background: rgba(255, 255, 255, 0.78);
+      font-size: 14px;
+      font-weight: 850;
+      box-shadow: 0 8px 22px rgba(18, 24, 30, 0.06);
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: #ffffff;
+      border-color: var(--ink);
+    }
+
+    .button.food {
+      background: var(--lime);
+      border-color: transparent;
+      color: #202400;
+    }
+
+    .portrait-card {
+      position: relative;
+      min-height: 520px;
+      border-radius: 30px;
+      padding: 18px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .portrait-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(216, 242, 106, 0.72), transparent 34%),
+        linear-gradient(315deg, rgba(255, 138, 61, 0.22), transparent 38%);
+      pointer-events: none;
+    }
+
+    .photo-placeholder {
+      position: relative;
+      height: 386px;
+      border-radius: 24px;
+      border: 1px dashed rgba(22, 22, 22, 0.25);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #757a80;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.32)),
+        repeating-linear-gradient(45deg, rgba(22, 22, 22, 0.035) 0 1px, transparent 1px 12px);
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    .portrait-meta {
+      position: relative;
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .role-pill {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(22, 22, 22, 0.92);
+      color: white;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 360px;
+      margin: 0;
+      color: var(--muted);
+      text-align: right;
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      word-break: keep-all;
+    }
+
+    .stack-board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stack-card {
+      min-height: 178px;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(22, 22, 22, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .stack-card:nth-child(2) {
+      background: #ecf8f1;
+    }
+
+    .stack-card:nth-child(3) {
+      background: #f1f4ff;
+    }
+
+    .stack-card:nth-child(5) {
+      background: #fff3e8;
+    }
+
+    .stack-card h3 {
+      margin: 0 0 16px;
+      font-size: 15px;
+      color: #202328;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(22, 22, 22, 0.08);
+      color: #202328;
+      font-size: 13px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .fine-print {
+      margin: 18px 0 0;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(74, 108, 247, 0.1);
+      color: #34415d;
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .project-info,
+    .browser {
+      border-radius: 30px;
+      background: var(--panel);
+      border: 1px solid rgba(22, 22, 22, 0.08);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .project-info {
+      padding: 34px;
+    }
+
+    .project-info h3 {
+      margin: 12px 0 16px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .project-info p {
+      margin: 0;
+      color: #3e454b;
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 17px;
+      word-break: keep-all;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 26px 0;
+    }
+
+    .stat {
+      min-height: 92px;
+      border-radius: 20px;
+      padding: 15px;
+      background: #f5f6f2;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 13px;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 26px;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr);
+      gap: 12px;
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    .meta-row b {
+      color: var(--muted);
+    }
+
+    .browser-top {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      background: #1d1f22;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #ff5f56;
+    }
+
+    .dot:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .dot:nth-child(3) {
+      background: #27c93f;
+    }
+
+    .live-frame {
+      width: 100%;
+      min-height: 500px;
+      border: 0;
+      display: block;
+      background: #ffffff;
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .edu-card {
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(22, 22, 22, 0.08);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .edu-card h3 {
+      margin: 0 0 18px;
+      font-size: 24px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 15px;
+    }
+
+    .table th,
+    .table td {
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .table th {
+      width: 110px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .certs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .cert {
+      min-height: 170px;
+      padding: 24px;
+      border-radius: 26px;
+      background: var(--ink);
+      color: white;
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cert:nth-child(2) {
+      background: var(--green);
+    }
+
+    .cert:nth-child(3) {
+      background: var(--blue);
+    }
+
+    .cert strong {
+      font-size: 22px;
+      line-height: 1.18;
+    }
+
+    .cert span {
+      color: rgba(255, 255, 255, 0.72);
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 38px 0 54px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .project,
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 52px 0 34px;
+        gap: 32px;
+      }
+
+      h1 {
+        max-width: 720px;
+      }
+
+      .portrait-card {
+        min-height: auto;
+      }
+
+      .stack-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .certs {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell,
+      .nav-inner {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      h1 {
+        margin: 22px 0 20px;
+        font-size: clamp(38px, 12vw, 58px);
+        line-height: 1.16;
+      }
+
+      .lead {
+        font-size: 17px;
+      }
+
+      .section-title {
+        display: block;
+      }
+
+      .section-title p {
+        margin-top: 10px;
+        text-align: left;
+      }
+
+      .stack-board,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .project-info,
+      .edu-card {
+        padding: 22px;
+      }
+
+      .portrait-card {
+        border-radius: 22px;
+      }
+
+      .photo-placeholder {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">MH</span>
+        <span>Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#stack">Stack</a>
+        <a href="#project">Project</a>
+        <a href="#education">Education</a>
+        <a href="#certificates">Certificates</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top" class="shell">
+    <header class="hero">
+      <div>
+        <span class="kicker">Full-stack · Backend · Frontend</span>
+        <h1>사용자 문제를<br><strong>서비스로 푸는</strong><br>개발자</h1>
+        <p class="lead">사용자 관점에서 문제를 정의하고, 끈기 있게 해결하며 협업으로 완성도를 높이는 개발자입니다.</p>
+        <div class="actions">
+          <a class="button primary" href="foodpick-detail.html">FoodPick 상세</a>
+          <a class="button food" href="https://foodpick.net/" target="_blank" rel="noreferrer">Live Service</a>
+          <a class="button" href="https://github.com/MyeongHyeonCheol" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <aside class="portrait-card" aria-label="profile photo placeholder">
+        <div class="photo-placeholder"></div>
+        <div class="portrait-meta">
+          <div class="role-pill">
+            <span>Target</span>
+            <span>Developer</span>
+          </div>
+          <div class="role-pill">
+            <span>Project</span>
+            <span>FoodPick</span>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <section id="stack">
+      <div class="section-title">
+        <h2>Tech Stack</h2>
+      </div>
+      <div class="stack-board">
+        <article class="stack-card">
+          <h3>Language</h3>
+          <div class="chips">
+            <span class="chip">Java</span>
+            <span class="chip">Python</span>
+            <span class="chip">TypeScript</span>
+          </div>
+        </article>
+        <article class="stack-card">
+          <h3>Backend</h3>
+          <div class="chips">
+            <span class="chip">Spring Boot</span>
+            <span class="chip">NestJS</span>
+            <span class="chip">MyBatis</span>
+          </div>
+        </article>
+        <article class="stack-card">
+          <h3>Frontend</h3>
+          <div class="chips">
+            <span class="chip">React</span>
+            <span class="chip">Next.js</span>
+          </div>
+        </article>
+        <article class="stack-card">
+          <h3>Database</h3>
+          <div class="chips">
+            <span class="chip">MySQL</span>
+            <span class="chip">PostgreSQL</span>
+          </div>
+        </article>
+        <article class="stack-card">
+          <h3>Infra & AI</h3>
+          <div class="chips">
+            <span class="chip">AWS</span>
+            <span class="chip">Docker</span>
+            <span class="chip">RAG</span>
+            <span class="chip">LangChain</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="project">
+      <div class="section-title">
+        <h2>Featured Project</h2>
+      </div>
+      <article class="project">
+        <div class="project-info">
+          <span class="kicker">Food Recommendation Service</span>
+          <h3>FoodPick</h3>
+          <p>사용자 선호도와 위치 정보를 반영한 AI 기반 맞춤형 맛집 추천 서비스입니다. 기존 맛집 추천 방식이 개인의 상황과 선호도를 충분히 반영하지 못하고 광고성 추천으로 피로감을 주는 문제를 개선하고자 기획했습니다.</p>
+          <div class="stats">
+            <div class="stat">
+              <strong>2명</strong>
+              <span>팀 프로젝트</span>
+            </div>
+            <div class="stat">
+              <strong>3등</strong>
+              <span>최종 팀 순위</span>
+            </div>
+            <div class="stat">
+              <strong>운영중</strong>
+              <span>foodpick.net</span>
+            </div>
+          </div>
+          <div class="meta-list">
+            <div class="meta-row">
+              <b>기간</b>
+              <span>2025.04 - 2025.06</span>
+            </div>
+            <div class="meta-row">
+              <b>역할</b>
+              <span>팀장, 프론트엔드 개발, 백엔드 개발, 추천 알고리즘 개발</span>
+            </div>
+            <div class="meta-row">
+              <b>기술</b>
+              <span>Next.js, TypeScript, NestJS, PostgreSQL, Docker Compose, AWS, Git</span>
+            </div>
+            <div class="meta-row">
+              <b>성과</b>
+              <span>한남대학교 학술제 우수상</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="button primary" href="foodpick-detail.html">상세 보기</a>
+            <a class="button food" href="https://foodpick.net/" target="_blank" rel="noreferrer">서비스 열기</a>
+          </div>
+        </div>
+
+        <div class="browser" aria-label="FoodPick visual mock">
+          <div class="browser-top">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <iframe class="live-frame" src="https://foodpick.net/" title="FoodPick live preview" loading="lazy"></iframe>
+        </div>
+      </article>
+    </section>
+
+    <section id="education">
+      <div class="section-title">
+        <h2>Education</h2>
+      </div>
+      <div class="edu-grid">
+        <article class="edu-card">
+          <h3>한남대학교</h3>
+          <table class="table">
+            <tr>
+              <th>전공</th>
+              <td>컴퓨터공학과</td>
+            </tr>
+            <tr>
+              <th>기간</th>
+              <td>2020.02 - 2026.02</td>
+            </tr>
+            <tr>
+              <th>학점</th>
+              <td>4.23 / 4.5</td>
+            </tr>
+            <tr>
+              <th>주요 학습</th>
+              <td>데이터베이스, 운영체제, 웹스크립트프로그래밍, 소프트웨어공학, 자료구조, 알고리즘</td>
+            </tr>
+          </table>
+        </article>
+
+        <article class="edu-card">
+          <h3>삼성 청년 SW·AI 아카데미</h3>
+          <table class="table">
+            <tr>
+              <th>역할</th>
+              <td>교육생</td>
+            </tr>
+            <tr>
+              <th>주요 학습</th>
+              <td>Java, Spring, Spring Boot, MySQL, MyBatis, Python</td>
+            </tr>
+            <tr>
+              <th>AI 실습</th>
+              <td>RAG, LangChain</td>
+            </tr>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section id="certificates">
+      <div class="section-title">
+        <h2>Certificates</h2>
+      </div>
+      <div class="certs">
+        <article class="cert">
+          <strong>정보처리기사</strong>
+          <span>한국산업인력공단 · 2025.09</span>
+        </article>
+        <article class="cert">
+          <strong>SQL 개발자<br>SQLD</strong>
+          <span>한국데이터산업진흥원 · 2025.09</span>
+        </article>
+        <article class="cert">
+          <strong>데이터분석<br>준전문가 ADsP</strong>
+          <span>한국데이터산업진흥원 · 2026.06</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    명현철 Developer Portfolio
+  </footer>
+</body>
+</html>
